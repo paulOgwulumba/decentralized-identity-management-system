@@ -1,5 +1,5 @@
-import { Home } from '@/features/home';
+import { NewHome } from '@/features/new-home';
 
 export default function Page() {
-  return <Home />;
+  return <NewHome />;
 }

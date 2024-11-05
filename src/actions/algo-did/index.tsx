@@ -503,6 +503,8 @@ export const useAlgoDidActions = () => {
         throw new Error('No wallet connected');
       }
 
+      console.log(appId);
+
       const sender = { signer, addr: activeAddress };
 
       const appClient = new AlgoDidClient(
