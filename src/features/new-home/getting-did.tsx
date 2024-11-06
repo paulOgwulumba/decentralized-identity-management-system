@@ -9,11 +9,10 @@ import toast from 'react-hot-toast';
 import { useAlgoDidActions } from '@/actions/algo-did';
 
 interface Props {
-  onCancel: () => void;
   onGetDids: (dids: string[]) => void;
 }
 
-export const GettingDid = ({ onCancel, onGetDids }: Props) => {
+export const GettingDid = ({ onGetDids }: Props) => {
   const { activeAddress } = useWallet();
   const algod = getAlgodClient();
   const { resolveDidByAppId } = useAlgoDidActions();
@@ -21,13 +20,11 @@ export const GettingDid = ({ onCancel, onGetDids }: Props) => {
   const searchForAvailableDiDs = async () => {
     try {
       const accountInfo = await algod.accountInformation(activeAddress!).do();
-      console.log(accountInfo['created-apps']);
       const createdApps: { id: number; params: any }[] = accountInfo['created-apps'];
       const dids: string[] = [];
 
       if (createdApps.length === 0) {
-        onCancel();
-        return;
+        onGetDids(dids);
       }
 
       for (const app of createdApps) {
@@ -43,7 +40,8 @@ export const GettingDid = ({ onCancel, onGetDids }: Props) => {
       onGetDids(dids);
     } catch (error) {
       toast.error('An error occurred while fetching your Decentralized ID');
-      onCancel();
+      // onCancel();
+      console.error(error);
     }
   };
 

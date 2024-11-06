@@ -503,8 +503,6 @@ export const useAlgoDidActions = () => {
         throw new Error('No wallet connected');
       }
 
-      console.log(appId);
-
       const sender = { signer, addr: activeAddress };
 
       const appClient = new AlgoDidClient(
@@ -655,6 +653,51 @@ export const useAlgoDidActions = () => {
     [activeAddress, signer],
   );
 
+  const createdDidVerificationTxn = useCallback(
+    async (did: string) => {
+      if (!activeAddress || !signer) {
+        throw new Error('No wallet connected');
+      }
+
+      const sender = { signer, addr: activeAddress };
+      const didDocument = await resolveDid(did);
+      const { publicKey: didPublicHex } = resolveDidIntoComponents(didDocument.id);
+
+      // Encode note for auth txn
+      const encoder = new TextEncoder();
+      const dataToSign = process.env.NEXT_PUBLIC_AUTH_TXN_NOTE || 'DiD auth transaction note';
+      const encodedData = encoder.encode(dataToSign);
+
+      // create txn
+      const suggestedParams = await algodClient.getTransactionParams().do();
+      const authTxn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+        from: sender.addr,
+        to: sender.addr,
+        amount: 0,
+        suggestedParams: {
+          ...suggestedParams,
+          fee: 0,
+          flatFee: true,
+        },
+        note: encodedData,
+      });
+
+      // encode and sign auth txn
+      const encodedTx = authTxn.toByte();
+      const signedTxn = (await signTransactions([encodedTx], [0]))[0];
+
+      // Signed txn can be converted to base64 and sent to a backend for validation
+      // refer to commented code
+      const signedTxnBase64 = Buffer.from(signedTxn).toString('base64'); // signed txn to base64
+
+      return {
+        document: didDocument,
+        authTransaction: signedTxnBase64,
+      };
+    },
+    [activeAddress, signer],
+  );
+
   return {
     deploySmartContract,
     createDidDocument,
@@ -668,5 +711,6 @@ export const useAlgoDidActions = () => {
     resolveDid,
     verifyOwnershipOfDid,
     resolveDidUsingExternalApi,
+    createdDidVerificationTxn,
   };
 };

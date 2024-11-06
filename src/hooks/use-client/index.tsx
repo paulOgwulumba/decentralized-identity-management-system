@@ -11,10 +11,12 @@ import {
 import { useRecoilState } from 'recoil';
 import { authAtom } from '@/state';
 import config from '@/config';
+import { useRouter } from 'next/navigation';
 
 export const useClient = () => {
   const baseApiUrl = config.API_URL;
   const [session, setSession] = useRecoilState(authAtom);
+  const { push } = useRouter();
 
   const generateAuthHeader = useCallback((auth?: Token) => {
     const token = auth && auth.accessToken;
@@ -37,6 +39,8 @@ export const useClient = () => {
         if (!response.ok) {
           if (response.status === 401 && redirectIfUnauthorized) {
             setSession(null);
+            localStorage.clear();
+            push('/');
           }
 
           const error: E = (data && data.message) || response.statusText;

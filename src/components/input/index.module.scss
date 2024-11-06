@@ -5,7 +5,7 @@
   flex-direction: column;
 
   .label {
-    font-family: 'Geist';
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -20,7 +20,7 @@
   }
 
   .warning {
-    font-family: 'Geist';
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -30,7 +30,7 @@
   }
 
   .error {
-    font-family: 'Geist';
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -44,7 +44,7 @@
   }
 
   .success {
-    font-family: 'Geist';
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -82,7 +82,7 @@
     }
 
     input {
-      font-family: 'Geist';
+      font-family: 'Inter';
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
@@ -113,7 +113,7 @@
 
     .eyeIcon {
       color: #a2b4c0;
-      cursor: poGeist;
+      cursor: poInter;
     }
 
     .errorIcon {
@@ -174,7 +174,7 @@
         border-radius: 8px;
         right: -10.33px;
         bottom: 26.33px;
-        font-family: 'Geist';
+        font-family: 'Inter';
         font-style: normal;
         font-weight: 600;
         font-size: 12px;
@@ -203,7 +203,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: poGeist;
+  cursor: poInter;
 
   input[type='checkbox'] {
     visibility: hidden;
@@ -267,7 +267,7 @@
   width: 44px;
   height: 24px;
   border-radius: 12px;
-  cursor: poGeist;
+  cursor: poInter;
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -41,8 +41,8 @@ export const Welcome = ({ onWalletConnect }: Props) => {
         </p>
         <p className="text-base text-center text-[#8a8a8a] font-[500]">
           To proceed, kindly connect your algorand compatible wallet to get your existing DiDs or
-          create a new one for you. Kindly note that only DiDs created and managed by your account
-          are considered valid
+          create a new one. Kindly note that only DiDs created and managed by your account are
+          considered valid
         </p>
         <Button onClick={() => setWalletConnect(true)} className="mt-[auto]">
           Connect wallet to get or create your DID
