@@ -79,20 +79,6 @@ export const useAlgoDidActions = () => {
           },
         ],
         authentication: [`${did}#master`],
-
-        // Add custom metadata like the username or email
-        // service: [
-        //   {
-        //     id: `${did}#username`,
-        //     type: 'UserProfile',
-        //     serviceEndpoint: { username: 'alice' },
-        //   },
-        //   {
-        //     id: `${did}#email`,
-        //     type: 'UserEmail',
-        //     serviceEndpoint: { email: 'alice@gmail.org' },
-        //   },
-        // ],
       };
 
       return didDocument;

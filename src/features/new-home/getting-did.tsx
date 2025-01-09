@@ -31,7 +31,6 @@ export const GettingDid = ({ onGetDids }: Props) => {
         try {
           const didDoc = await resolveDidByAppId(String(app.id));
           dids.push(didDoc.id);
-          console.log(didDoc);
         } catch (err) {
           console.log(err);
         }
